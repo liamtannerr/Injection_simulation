@@ -20,7 +20,7 @@ gmsh.initialize()
 gmsh.model.add("injectionmesh1.py")
 
 
-lc = 0.2    #Represents the density/ precision of the mesh.
+lc = 0.3    #Represents the density/ precision of the mesh.
 
 #Add all the vertices of the prism.
 #First three arguments are the xyz coordinates.
@@ -56,17 +56,36 @@ gmsh.model.geo.addLine(7, 8, 12)
 #'addCurveLoop()' takes in a list of lines (boundaries) as the first argument.
 #The last element is the loop tag which is then referenced in the next line to create the surface.
 gmsh.model.geo.addCurveLoop([3, -2, 1, -4], 1)
-gmsh.model.geo.addPlaneSurface([1], 1)
 gmsh.model.geo.addCurveLoop([12, -9, 10, -11], 2)
-gmsh.model.geo.addPlaneSurface([2], 2)
 gmsh.model.geo.addCurveLoop([12, -3, 6, -8], 3)
-gmsh.model.geo.addPlaneSurface([3], 3)
 gmsh.model.geo.addCurveLoop([9, -2, 5, -7], 4)
-gmsh.model.geo.addPlaneSurface([4], 4)
 gmsh.model.geo.addCurveLoop([8, -7, 4, -11], 5)
-gmsh.model.geo.addPlaneSurface([5], 5)
 gmsh.model.geo.addCurveLoop([6, -5, 1, -10], 6)
-gmsh.model.geo.addPlaneSurface([6], 6)
+
+#Loop through all the curve loops we just made and create a surface for each one
+for l in range(1, 7):
+    gmsh.model.geo.addPlaneSurface([l], l)
+
+
+dim = 2
+Top = gmsh.model.addPhysicalGroup(dim, [1])
+gmsh.model.setPhysicalName(dim, Top, "Top")
+
+Bottom = gmsh.model.addPhysicalGroup(dim, [2])
+gmsh.model.setPhysicalName(dim, Bottom, "Bottom")
+
+Right = gmsh.model.addPhysicalGroup(dim, [3])
+gmsh.model.setPhysicalName(dim, Right, "Right")
+
+Left = gmsh.model.addPhysicalGroup(dim, [4])
+gmsh.model.setPhysicalName(dim, Left, "Left")
+
+Front = gmsh.model.addPhysicalGroup(dim, [5])
+gmsh.model.setPhysicalName(dim, Front, "Front")
+
+Back = gmsh.model.addPhysicalGroup(dim, [6])
+gmsh.model.setPhysicalName(dim, Back, "Back")
+
 
 # Before they can be meshed (and, more generally, before they can be used by API
 # functions outside of the built-in CAD kernel functions), the CAD entities must
@@ -86,6 +105,10 @@ gmsh.model.mesh.generate(2)
 #Finally we tag this surface loop as '1' and reference it in making the volume.
 gmsh.model.geo.addSurfaceLoop([1, 2, 3, 4, 5, 6], 1)
 gmsh.model.geo.addVolume([1], 1)
+
+dim = 3
+Interior = gmsh.model.addPhysicalGroup(dim, [1])
+gmsh.model.setPhysicalName(dim, Interior, "Interior")
 
 gmsh.model.geo.synchronize()
 
