@@ -116,6 +116,7 @@ gmsh.model.geo.synchronize()
 gmsh.model.mesh.generate(3)
 
 # ... and save it to disk
+gmsh.option.setNumber("Mesh.MshFileVersion", 1.1)
 gmsh.write("injectionmesh1.msh")
 
 # Launch the GUI to see the results:
