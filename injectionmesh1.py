@@ -20,7 +20,7 @@ gmsh.initialize()
 gmsh.model.add("injectionmesh1.py")
 
 
-lc = 0.3    #Represents the density/ precision of the mesh.
+lc = 0.5    #Represents the density/ precision of the mesh.
 
 #Add all the vertices of the prism.
 #First three arguments are the xyz coordinates.
