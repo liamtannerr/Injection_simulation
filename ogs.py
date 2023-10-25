@@ -32,7 +32,7 @@ def main():
     if args.tool == 'paraview':
         print("Running ParaView...")
         run_paraview()
-       #Paraview will run indefinitely so there is no need to display when it finishes
+        print("Paraview has Finished")
     elif args.tool == 'ogs':
         print("Running OGS...")
         run_ogs()
