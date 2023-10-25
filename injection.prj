@@ -58,7 +58,7 @@
                 <property>
                     <name>porosity</name>
                     <type>Constant</type>
-                    <value>0</value>
+                    <value>0.1</value>
                 </property>
                 <property>
                     <name>biot_coefficient</name>
@@ -103,7 +103,7 @@
                     <timesteps>
                         <pair>
                             <repeat>1</repeat>
-                            <delta_t>0.1</delta_t>
+                            <delta_t>0.5</delta_t>
                         </pair>
                     </timesteps>
                 </time_stepping>
