@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <OpenGeoSysProject>
-    <mesh>injectionmesh1.vtu</mesh>
+    <mesh>injectionmesh2.vtu</mesh>
     <geometry>injectiongeo1.gml</geometry>
     <processes>
         <process>
@@ -29,7 +29,7 @@
         <medium>
             <phases>
                 <phase>
-                    <type>Gas</type>
+                    <type>AqueousLiquid</type>
                     <properties>
                         <property>
                             <name>viscosity</name>
@@ -39,7 +39,7 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>50</value>
+                            <value>1000</value>
                         </property>
                     </properties>
                 </phase>
@@ -49,7 +49,7 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>2000</value>
+                            <value>2500</value>
                         </property>
                     </properties>
                 </phase>
@@ -99,11 +99,11 @@
                 <time_stepping>
                     <type>FixedTimeStepping</type>
                     <t_initial>0</t_initial>
-                    <t_end>1</t_end>
+                    <t_end>10</t_end>
                     <timesteps>
                         <pair>
                             <repeat>1</repeat>
-                            <delta_t>0.5</delta_t>
+                            <delta_t>1</delta_t>
                         </pair>
                     </timesteps>
                 </time_stepping>
@@ -111,7 +111,7 @@
         </processes>
         <output>
             <type>VTK</type>
-            <prefix>injection</prefix>
+            <prefix>daniel_injection</prefix>
             <timesteps>
                 <pair>
                     <repeat>1</repeat>
