@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <OpenGeoSysProject>
-    <mesh>injectionmesh2.vtu</mesh>
+    <mesh>injectionmesh1.vtu</mesh>
     <geometry>injectiongeo1.gml</geometry>
     <processes>
         <process>
@@ -29,7 +29,7 @@
         <medium>
             <phases>
                 <phase>
-                    <type>AqueousLiquid</type>
+                    <type>Gas</type>
                     <properties>
                         <property>
                             <name>viscosity</name>
@@ -39,7 +39,7 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>1000</value>
+                            <value>50</value>
                         </property>
                     </properties>
                 </phase>
@@ -49,7 +49,7 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>2500</value>
+                            <value>2000</value>
                         </property>
                     </properties>
                 </phase>
@@ -63,7 +63,7 @@
                 <property>
                     <name>biot_coefficient</name>
                     <type>Constant</type>
-                    <value>0</value>
+                    <value>1</value>
                 </property>
                 <property>
                     <name>reference_temperature</name>
@@ -72,14 +72,8 @@
                 </property>
                 <property>
                     <name>permeability</name>
-                    <type>EmbeddedFracturePermeability</type>
-                    <intrinsic_permeability>1e-20</intrinsic_permeability>
-                    <initial_aperture>0</initial_aperture>
-                    <mean_frac_distance>0.01</mean_frac_distance>
-                    <threshold_strain>1e-5</threshold_strain>
-                    <fracture_normal>1 0 1</fracture_normal>
-                    <fracture_rotation_xy>pi_over_2</fracture_rotation_xy>
-                    <fracture_rotation_yz>pi_over_4</fracture_rotation_yz>
+                    <type>Constant</type>
+                    <value>1e-16</value>
                 </property>
             </properties>
         </medium>
@@ -99,11 +93,11 @@
                 <time_stepping>
                     <type>FixedTimeStepping</type>
                     <t_initial>0</t_initial>
-                    <t_end>10</t_end>
+                    <t_end>864000</t_end>
                     <timesteps>
                         <pair>
                             <repeat>1</repeat>
-                            <delta_t>1</delta_t>
+                            <delta_t>86400</delta_t>
                         </pair>
                     </timesteps>
                 </time_stepping>
@@ -111,7 +105,7 @@
         </processes>
         <output>
             <type>VTK</type>
-            <prefix>daniel_injection</prefix>
+            <prefix>Working_injection</prefix>
             <timesteps>
                 <pair>
                     <repeat>1</repeat>
