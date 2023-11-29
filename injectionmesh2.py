@@ -20,7 +20,7 @@ gmsh.initialize()
 gmsh.model.add("injectionmesh2.py")
 
 
-lc = 0.3    #Represents the density/ precision of the mesh.
+lc = 0.5    #Represents the density/ precision of the mesh.
 
 x = 18
 y = 16
@@ -134,7 +134,7 @@ gmsh.model.setPhysicalName(dim, Back, "Back")
 # the number of synchronization points.
 
 gmsh.model.geo.synchronize()
-
+gmsh.model.mesh.generate(2)
 
 gmsh.model.geo.addSurfaceLoop([1, 2, 3, 4, 5, 6], 1)
 gmsh.model.geo.addVolume([1], 1)
