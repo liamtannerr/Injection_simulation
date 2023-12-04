@@ -9,7 +9,7 @@ def run_paraview():
 def run_ogs():
     try:
         #Change to the necessary command to run ogs
-        command = "singularity exec /home/liam/Downloads/Latest_sif/gcc_latest.sif ./Downloads/ogsbuild/bin/ogs -l debug Downloads/ISR/ISR/injection.prj"
+        command = "singularity exec /home/liam/Downloads/Latest_sif/gcc_latest.sif ./Downloads/ogsbuild/bin/ogs -l debug Downloads/ISR/ISR/injection1.prj"
         completed_process = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         
         # Print OGS output

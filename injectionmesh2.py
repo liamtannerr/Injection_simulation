@@ -1,9 +1,8 @@
 # ------------------------------------------------------------------------------
-#   Mesh for OGS C02 injection #1.
-#   Mesh is an 18x16x7 rectangular prism.
-#   Each face of the prism is a mesh surface.
-#   The inside of the prism is a mesh volume that can represent any material specified in the OGS .prj file.
-#   Note that when 'tag' is mentioned below, it refers to naming a particular element such as a point, line, surface or volume in our case.
+#   Mesh for OGS C02 injection #2.
+#   This mesh is an 18x16x7 rectangular prism which is partitioned into 3 parts.
+#   These parts being Bedrock, Sediment and an Injection source.
+#   The source of the injection lies in the middle of the bedrock but is its own material (there is no overlap).
 # ------------------------------------------------------------------------------
 
 # The Python API is entirely defined in the `gmsh.py' module (which contains the
@@ -19,17 +18,21 @@ gmsh.initialize()
 # unnamed model will be created on the fly, if necessary):
 gmsh.model.add("injectionmesh2.py")
 
+# Units: meter
+km = 1e3  # km in m
+m = 1
 
-lc = 0.5    #Represents the density/ precision of the mesh.
+lc = 500    #Represents the density/ precision of the mesh.
 
-x = 18
-y = 16
-z = 3.5
+x = 18 * km
+y = 16 * km
+z = 3.5 * km
+
+Delta = 100 * m
 
 #Add all the vertices of the prism.
-#First three arguments are the xyz coordinates.
-#The next is the density of the surrounding mesh.
-#Finally the point tag is represented by a strictly positive integer.
+dim = 2
+
 gmsh.model.geo.addPoint(0, 0, 0, lc, 1)
 gmsh.model.geo.addPoint(x, 0, 0, lc, 2)
 gmsh.model.geo.addPoint(0, y, 0, lc, 3)
@@ -74,7 +77,7 @@ gmsh.model.geo.addLine(5, 12, 22)
 gmsh.model.geo.addLine(2, 10, 23)
 gmsh.model.geo.addLine(1, 9, 24)
 
-dim = 2
+
 
 #Now in order to mesh the faces we must first create a curve loop that defines the face.
 #Always be sure to close the loop by listing the line tags in an order that makes sense and use negatives to reverse the curve as needed.
@@ -99,12 +102,45 @@ gmsh.model.geo.addCurveLoop([17, -2, 24, -21], 13) #Full left panel
 gmsh.model.geo.addCurveLoop([19, -4, 21, -22], 14) #Full front panel
 gmsh.model.geo.addCurveLoop([18, -1, 24, -23], 15) #Full back panel
 
+#Now create a cubic mesh to represent the injection point 
+
+injectionmid = gmsh.model.geo.addPoint(0.5*x, 0.5*y, 0.5*z, lc, 13)
+#Note that by multiplying lc by 0.5, we double the precision of the mesh at the injection point
+p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z + Delta, lc * 0.5, 14)
+p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z - Delta, lc * 0.5, 15)
+p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z + Delta, lc * 0.5, 16)
+p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z - Delta, lc * 0.5, 17)
+p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z + Delta, lc * 0.5, 18)
+p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z - Delta, lc * 0.5, 19)
+p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z + Delta, lc * 0.5, 20)
+p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z - Delta, lc * 0.5, 21)
+
+l1 = gmsh.model.geo.addLine(p1, p2, 25)
+l2 = gmsh.model.geo.addLine(p2, p4, 26)
+l3 = gmsh.model.geo.addLine(p4, p3, 27)
+l4 = gmsh.model.geo.addLine(p3, p1, 28)
+l5 = gmsh.model.geo.addLine(p1, p5, 29)
+l6 = gmsh.model.geo.addLine(p3, p7, 30)
+l7 = gmsh.model.geo.addLine(p4, p8, 31)
+l8 = gmsh.model.geo.addLine(p2, p6, 32)
+l9 = gmsh.model.geo.addLine(p5, p6, 33)
+l10 = gmsh.model.geo.addLine(p6, p8, 34)
+l11 = gmsh.model.geo.addLine(p8, p7, 35)
+l12 = gmsh.model.geo.addLine(p7, p5, 36)
+
+CL1 = gmsh.model.geo.addCurveLoop([26, 28, 25, 27], 16)
+CL2 = gmsh.model.geo.addCurveLoop([34, 36, 35, 33], 17)
+CL3 = gmsh.model.geo.addCurveLoop([-31, 30, 27, -35], 18)
+CL4 = gmsh.model.geo.addCurveLoop([-32, 29, 33, -25], 19)
+CL5 = gmsh.model.geo.addCurveLoop([-30, 29, 28, -36], 20)
+CL6 = gmsh.model.geo.addCurveLoop([-32, 31, 26, -34], 21)
+
 #Loop through all the curve loops we just made and create a surface for each one
-for l in range(1, 16):
+for l in range(1, 22):
     gmsh.model.geo.addPlaneSurface([l], l)
 
 
-
+#Set the boundaries as physical groups for OGS use
 Top = gmsh.model.addPhysicalGroup(dim, [1])
 gmsh.model.setPhysicalName(dim, Top, "Top")
 
@@ -124,28 +160,27 @@ Back = gmsh.model.addPhysicalGroup(dim, [7])
 gmsh.model.setPhysicalName(dim, Back, "Back")
 
 
-# Before they can be meshed (and, more generally, before they can be used by API
-# functions outside of the built-in CAD kernel functions), the CAD entities must
-# be synchronized with the Gmsh model, which will create the relevant Gmsh data
-# structures. This is achieved by the gmsh.model.geo.synchronize() API call for
-# the built-in CAD kernel. Synchronizations can be called at any time, but they
-# involve a non trivial amount of processing; so while you could synchronize the
-# internal CAD data after every CAD command, it is usually better to minimize
-# the number of synchronization points.
-
 gmsh.model.geo.synchronize()
 gmsh.model.mesh.generate(2)
 
-gmsh.model.geo.addSurfaceLoop([1, 2, 3, 4, 5, 6], 1)
-gmsh.model.geo.addVolume([1], 1)
-gmsh.model.geo.addSurfaceLoop([2, 11, 7, 8, 9, 10], 2)
-gmsh.model.geo.addVolume([2], 2)
-
 dim = 3
-TopLayer = gmsh.model.addPhysicalGroup(dim, [1])
-gmsh.model.setPhysicalName(dim, TopLayer, "TopLayer")
-BottomLayer = gmsh.model.addPhysicalGroup(dim, [2])
-gmsh.model.setPhysicalName(dim, BottomLayer, "BottomLayer")
+
+gmsh.model.geo.addSurfaceLoop([1, 2, 3, 4, 5, 6], 1) #Bedrock
+gmsh.model.geo.addSurfaceLoop([2, 11, 7, 8, 9, 10], 2) #Sediment
+gmsh.model.geo.addSurfaceLoop([CL1, CL2, CL3, CL4, CL5, CL6], 3) #Injection
+
+gmsh.model.geo.addVolume([1, 3], 1) # The Bedrock must not overlap with the injection point
+gmsh.model.geo.addVolume([2], 2)
+gmsh.model.geo.addVolume([3], 3)
+
+
+#Set materials as physical groups for OGS use
+Bedrock = gmsh.model.addPhysicalGroup(dim, [1])
+gmsh.model.setPhysicalName(dim, Bedrock, "Bedrock")
+Sediment = gmsh.model.addPhysicalGroup(dim, [2])
+gmsh.model.setPhysicalName(dim, Sediment, "Sediment")
+Injection = gmsh.model.addPhysicalGroup(dim, [3])
+gmsh.model.setPhysicalName(dim, Injection, "Injection")
 
 gmsh.model.geo.synchronize()
 gmsh.model.mesh.generate(3)
