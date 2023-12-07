@@ -27,7 +27,6 @@ lc = 500    #Represents the density/ precision of the mesh.
 x = 18 * km
 y = 16 * km
 z = 3.5 * km
-
 Delta = 100 * m
 
 #Add all the vertices of the prism.
@@ -83,7 +82,6 @@ gmsh.model.geo.addLine(1, 9, 24)
 #Always be sure to close the loop by listing the line tags in an order that makes sense and use negatives to reverse the curve as needed.
 #'addCurveLoop()' takes in a list of lines (boundaries) as the first argument.
 #The last element is the loop tag which is then referenced in the next step to create the surface.
-
 gmsh.model.geo.addCurveLoop([3, -2, 1, -4], 1) #Ceiling panel
 gmsh.model.geo.addCurveLoop([12, -9, 10, -11], 2) #Middle panel
 gmsh.model.geo.addCurveLoop([12, -3, 6, -8], 3) #Top right panel
@@ -103,17 +101,15 @@ gmsh.model.geo.addCurveLoop([19, -4, 21, -22], 14) #Full front panel
 gmsh.model.geo.addCurveLoop([18, -1, 24, -23], 15) #Full back panel
 
 #Now create a cubic mesh to represent the injection point 
-
 injectionmid = gmsh.model.geo.addPoint(0.5*x, 0.5*y, 0.5*z, lc, 13)
-#Note that by multiplying lc by 0.5, we double the precision of the mesh at the injection point
-p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z + Delta, lc * 0.5, 14)
-p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z - Delta, lc * 0.5, 15)
-p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z + Delta, lc * 0.5, 16)
-p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z - Delta, lc * 0.5, 17)
-p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z + Delta, lc * 0.5, 18)
-p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z - Delta, lc * 0.5, 19)
-p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z + Delta, lc * 0.5, 20)
-p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z - Delta, lc * 0.5, 21)
+p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z + Delta, lc, 14)
+p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z - Delta, lc, 15)
+p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z + Delta, lc, 16)
+p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z - Delta, lc, 17)
+p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z + Delta, lc, 18)
+p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z - Delta, lc, 19)
+p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z + Delta, lc, 20)
+p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z - Delta, lc, 21)
 
 l1 = gmsh.model.geo.addLine(p1, p2, 25)
 l2 = gmsh.model.geo.addLine(p2, p4, 26)
@@ -156,7 +152,7 @@ gmsh.model.setPhysicalName(dim, Bottom, "Bottom")
 Front = gmsh.model.addPhysicalGroup(dim, [14])
 gmsh.model.setPhysicalName(dim, Front, "Front")
 
-Back = gmsh.model.addPhysicalGroup(dim, [7])
+Back = gmsh.model.addPhysicalGroup(dim, [15])
 gmsh.model.setPhysicalName(dim, Back, "Back")
 
 
@@ -164,21 +160,20 @@ gmsh.model.geo.synchronize()
 gmsh.model.mesh.generate(2)
 
 dim = 3
-
-gmsh.model.geo.addSurfaceLoop([1, 2, 3, 4, 5, 6], 1) #Bedrock
-gmsh.model.geo.addSurfaceLoop([2, 11, 7, 8, 9, 10], 2) #Sediment
+gmsh.model.geo.addSurfaceLoop([2, 11, 7, 8, 9, 10], 1) #Sediment
+gmsh.model.geo.addSurfaceLoop([1, 2, 3, 4, 5, 6], 2) #Bedrock
 gmsh.model.geo.addSurfaceLoop([CL1, CL2, CL3, CL4, CL5, CL6], 3) #Injection
 
-gmsh.model.geo.addVolume([1, 3], 1) # The Bedrock must not overlap with the injection point
-gmsh.model.geo.addVolume([2], 2)
+gmsh.model.geo.addVolume([1], 1) # The Bedrock must not overlap with the injection point
+gmsh.model.geo.addVolume([2, 3], 2)
 gmsh.model.geo.addVolume([3], 3)
 
 
 #Set materials as physical groups for OGS use
-Bedrock = gmsh.model.addPhysicalGroup(dim, [1])
-gmsh.model.setPhysicalName(dim, Bedrock, "Bedrock")
-Sediment = gmsh.model.addPhysicalGroup(dim, [2])
+Sediment = gmsh.model.addPhysicalGroup(dim, [1])
 gmsh.model.setPhysicalName(dim, Sediment, "Sediment")
+Bedrock = gmsh.model.addPhysicalGroup(dim, [2])
+gmsh.model.setPhysicalName(dim, Bedrock, "Bedrock")
 Injection = gmsh.model.addPhysicalGroup(dim, [3])
 gmsh.model.setPhysicalName(dim, Injection, "Injection")
 

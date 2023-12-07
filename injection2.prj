@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <OpenGeoSysProject>
     <meshes>
-        <mesh>mesh_domain.vtu</mesh>
-        <mesh>mesh_physical_group_Top.vtu</mesh>
-        <mesh>mesh_physical_group_Left.vtu</mesh>
-        <mesh>mesh_physical_group_Right.vtu</mesh>
-        <mesh>mesh_physical_group_Bottom.vtu</mesh>
-        <mesh>mesh_physical_group_Injection.vtu</mesh>
+        <mesh>injectionmesh2_domain.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Front.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Back.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Top.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Left.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Right.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Bottom.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Sediment.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Bedrock.vtu</mesh>
+        <mesh>injectionmesh2_physical_group_Injection.vtu</mesh>
     </meshes>
     <processes>
         <process>
@@ -16,19 +20,19 @@
             <!--(polynomial degree to which exact integration is possible) -->
             <!--for the displacement element order = 2 it has to be chosen:-->
             <integration_order>3</integration_order>
-            <dimension>2</dimension>
+            <dimension>3</dimension>
             <!--define the constitutive behavior:  the material group IDs will be defined in parameters. -->
-            <constitutive_relation id="5">
+            <constitutive_relation id="0">
                 <type>LinearElasticIsotropic</type>
                 <youngs_modulus>YoungModulus</youngs_modulus>
                 <poissons_ratio>PoissonRatio</poissons_ratio>
             </constitutive_relation>
-            <constitutive_relation id="6">
+            <constitutive_relation id="1">
                 <type>LinearElasticIsotropic</type>
                 <youngs_modulus>YoungModulus</youngs_modulus>
                 <poissons_ratio>PoissonRatio</poissons_ratio>
             </constitutive_relation>
-            <constitutive_relation id="7">
+            <constitutive_relation id="2">
                 <type>LinearElasticIsotropic</type>
                 <youngs_modulus>YoungModulus</youngs_modulus>
                 <poissons_ratio>PoissonRatio</poissons_ratio>
@@ -40,7 +44,7 @@
                 <displacement>displacement</displacement>
             </process_variables>
             <!--gravity constant -->
-            <specific_body_force>0 -9.81</specific_body_force>
+            <specific_body_force>0 0 -9.81</specific_body_force>
             <!--define the output quantities derived from the primary variables-->
             <secondary_variables>
                 <secondary_variable internal_name="sigma" output_name="sigma"/>
@@ -95,7 +99,7 @@
         </output>
     </time_loop>
     <media>
-        <medium id="5, 6, 7">
+        <medium id="0, 1, 2">
             <phases>
                 <phase>
                     <type>Gas</type>
@@ -153,15 +157,15 @@
             <type>Group</type>
             <group_id_property>MaterialIDs</group_id_property>
             <index_values>
-                <index>5</index>
+                <index>0</index>
                 <value>18.66e9</value> <!--Pa-->
             </index_values>
             <index_values>
-                <index>6</index>
+                <index>1</index>
                 <value>25.0e9</value> <!--Pa-->
             </index_values>
             <index_values>
-                <index>7</index>
+                <index>2</index>
                 <value>25.0e9</value> <!--Pa-->
             </index_values>
         </parameter>
@@ -170,22 +174,22 @@
             <type>Group</type>
             <group_id_property>MaterialIDs</group_id_property>
             <index_values>
-                <index>5</index>
+                <index>0</index>
                 <value>0.25</value>
             </index_values>
             <index_values>
-                <index>6</index>
+                <index>1</index>
                 <value>0.33</value>
             </index_values>
             <index_values>
-                <index>7</index>
+                <index>2</index>
                 <value>0.33</value>
             </index_values>
         </parameter>
         <parameter>
             <name>displacement0</name>
             <type>Constant</type>
-            <values>0 0</values>
+            <values>0 0 0</values>
         </parameter>
         <parameter>
             <name>pressure0</name>
@@ -245,32 +249,44 @@
     <process_variables>
         <process_variable>
             <name>displacement</name>
-            <components>2</components>
+            <components>3</components>
             <order>2</order>
             <initial_condition>displacement0</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <mesh>mesh_physical_group_Bottom</mesh>
+                    <mesh>injectionmesh2_physical_group_Front</mesh>
+                    <type>Dirichlet</type>
+                    <component>0</component>
+                    <parameter>zero</parameter>
+                </boundary_condition>
+                <boundary_condition>
+                    <mesh>injectionmesh2_physical_group_Back</mesh>
+                    <type>Dirichlet</type>
+                    <component>0</component>
+                    <parameter>zero</parameter>
+                </boundary_condition>
+                <boundary_condition>
+                    <mesh>injectionmesh2_physical_group_Right</mesh>
                     <type>Dirichlet</type>
                     <component>1</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>mesh_physical_group_Bottom</mesh>
+                    <mesh>injectionmesh2_physical_group_Left</mesh>
                     <type>Dirichlet</type>
-                    <component>0</component>
+                    <component>1</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>mesh_physical_group_Left</mesh>
+                    <mesh>injectionmesh2_physical_group_Top</mesh>
                     <type>Dirichlet</type>
-                    <component>0</component>
+                    <component>2</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>mesh_physical_group_Right</mesh>
+                    <mesh>injectionmesh2_physical_group_Bottom</mesh>
                     <type>Dirichlet</type>
-                    <component>0</component>
+                    <component>2</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
             </boundary_conditions>
@@ -280,27 +296,15 @@
             <components>1</components>
             <order>1</order>
             <initial_condition>pressure0</initial_condition>
-            <boundary_conditions>
+            <boundary_conditions>  
                 <boundary_condition>
-                    <mesh>mesh_physical_group_Bottom</mesh>
+                    <mesh>injectionmesh2_physical_group_Right</mesh>
                     <type>Neumann</type>
                     <component>0</component>
                     <parameter>pressure0</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>mesh_physical_group_Right</mesh>
-                    <type>Neumann</type>
-                    <component>0</component>
-                    <parameter>pressure0</parameter>
-                </boundary_condition>
-                <boundary_condition>
-                    <mesh>mesh_physical_group_Left</mesh>
-                    <type>Neumann</type>
-                    <component>0</component>
-                    <parameter>pressure0</parameter>
-                </boundary_condition>
-                <boundary_condition>
-                    <mesh>mesh_physical_group_Top</mesh>
+                    <mesh>injectionmesh2_physical_group_Left</mesh>
                     <type>Neumann</type>
                     <component>0</component>
                     <parameter>pressure0</parameter>
@@ -308,7 +312,7 @@
             </boundary_conditions>
             <source_terms>
                 <source_term>
-                    <mesh>mesh_physical_group_Injection</mesh>
+                    <mesh>injectionmesh2_physical_group_Injection</mesh>
                     <!-- <type>Nodal</type> -->
                     <type>Volumetric</type>
                     <parameter>TimeDependentSourceTerm</parameter>
