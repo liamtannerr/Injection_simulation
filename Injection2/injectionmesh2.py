@@ -19,39 +19,38 @@ gmsh.initialize()
 gmsh.model.add("injectionmesh2.py")
 
 # Units: meter
-km = 1e3  # km in m
+km = 1e3  #km in m
 m = 1
 
-lc = 500    #Represents the density/ precision of the mesh.
+lc = 500  #Represents the density/ precision of the mesh.
 
 x = 18 * km
 y = 16 * km
-z = 3.5 * km
+z = 7 * km
 Delta = 100 * m
 
 #Add all the vertices of the prism.
-dim = 2
-
 gmsh.model.geo.addPoint(0, 0, 0, lc, 1)
 gmsh.model.geo.addPoint(x, 0, 0, lc, 2)
 gmsh.model.geo.addPoint(0, y, 0, lc, 3)
-gmsh.model.geo.addPoint(0, 0, z, lc, 4)
+gmsh.model.geo.addPoint(0, 0, 0.5 * z, lc, 4)
 gmsh.model.geo.addPoint(x, y, 0, lc, 5)
-gmsh.model.geo.addPoint(0, y, z, lc, 6)
-gmsh.model.geo.addPoint(x, 0, z, lc, 7)
-gmsh.model.geo.addPoint(x, y, z, lc, 8)
-gmsh.model.geo.addPoint(0, 0, 2*z, lc, 9)
-gmsh.model.geo.addPoint(x, 0, 2*z, lc, 10)
-gmsh.model.geo.addPoint(0, y, 2*z, lc, 11)
-gmsh.model.geo.addPoint(x, y, 2*z, lc, 12)
+gmsh.model.geo.addPoint(0, y, 0.5 * z, lc, 6)
+gmsh.model.geo.addPoint(x, 0, 0.5 * z, lc, 7)
+gmsh.model.geo.addPoint(x, y, 0.5 * z, lc, 8)
+gmsh.model.geo.addPoint(0, 0, z, lc, 9)
+gmsh.model.geo.addPoint(x, 0, z, lc, 10)
+gmsh.model.geo.addPoint(0, y, z, lc, 11)
+gmsh.model.geo.addPoint(x, y, z, lc, 12)
 
 #Connect all the vertices with the 'addline()' function.
 #First two arguments are the vertices to connect.
 #Last argument is the line tag.
-gmsh.model.geo.addLine(1, 2, 1)
-gmsh.model.geo.addLine(1, 3, 2)
-gmsh.model.geo.addLine(2, 5, 3)
-gmsh.model.geo.addLine(3, 5, 4)
+gmsh.model.geo.addLine(1, 2, 1) #Top back
+gmsh.model.geo.addLine(1, 3, 2) #Top left
+gmsh.model.geo.addLine(2, 5, 3) #Top right
+gmsh.model.geo.addLine(3, 5, 4) #Top front
+
 gmsh.model.geo.addLine(1, 4, 5)
 gmsh.model.geo.addLine(2, 7, 6)
 gmsh.model.geo.addLine(3, 6, 7)
@@ -70,11 +69,6 @@ gmsh.model.geo.addLine(9, 11, 17)
 gmsh.model.geo.addLine(9, 10, 18)
 gmsh.model.geo.addLine(11, 12, 19)
 gmsh.model.geo.addLine(10, 12, 20)
-
-gmsh.model.geo.addLine(3, 11, 21)
-gmsh.model.geo.addLine(5, 12, 22)
-gmsh.model.geo.addLine(2, 10, 23)
-gmsh.model.geo.addLine(1, 9, 24)
 
 
 
@@ -95,64 +89,64 @@ gmsh.model.geo.addCurveLoop([17, -9, 13, -15], 9) #Bottom left panel
 gmsh.model.geo.addCurveLoop([16, -15, 11, -19], 10) #Bottom front panel
 gmsh.model.geo.addCurveLoop([14, -13, 10, -18], 11) #Bottom back panel
 
-gmsh.model.geo.addCurveLoop([20, -3, 23, -22], 12) #Full right panel
-gmsh.model.geo.addCurveLoop([17, -2, 24, -21], 13) #Full left panel
-gmsh.model.geo.addCurveLoop([19, -4, 21, -22], 14) #Full front panel
-gmsh.model.geo.addCurveLoop([18, -1, 24, -23], 15) #Full back panel
 
 #Now create a cubic mesh to represent the injection point 
-injectionmid = gmsh.model.geo.addPoint(0.5*x, 0.5*y, 0.5*z, lc, 13)
-p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z + Delta, lc, 14)
-p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.5*z - Delta, lc, 15)
-p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z + Delta, lc, 16)
-p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.5*z - Delta, lc, 17)
-p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z + Delta, lc, 18)
-p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.5*z - Delta, lc, 19)
-p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z + Delta, lc, 20)
-p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.5*z - Delta, lc, 21)
+injectionmid = gmsh.model.geo.addPoint(0.5*x, 0.5*y, 0.25*z, lc, 13)
+p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.25*z + Delta, lc, 14)
+p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 0.25*z - Delta, lc, 15)
+p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.25*z + Delta, lc, 16)
+p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 0.25*z - Delta, lc, 17)
+p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.25*z + Delta, lc, 18)
+p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 0.25*z - Delta, lc, 19)
+p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.25*z + Delta, lc, 20)
+p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 0.25*z - Delta, lc, 21)
 
-l1 = gmsh.model.geo.addLine(p1, p2, 25)
-l2 = gmsh.model.geo.addLine(p2, p4, 26)
-l3 = gmsh.model.geo.addLine(p4, p3, 27)
-l4 = gmsh.model.geo.addLine(p3, p1, 28)
-l5 = gmsh.model.geo.addLine(p1, p5, 29)
-l6 = gmsh.model.geo.addLine(p3, p7, 30)
-l7 = gmsh.model.geo.addLine(p4, p8, 31)
-l8 = gmsh.model.geo.addLine(p2, p6, 32)
-l9 = gmsh.model.geo.addLine(p5, p6, 33)
-l10 = gmsh.model.geo.addLine(p6, p8, 34)
-l11 = gmsh.model.geo.addLine(p8, p7, 35)
-l12 = gmsh.model.geo.addLine(p7, p5, 36)
+#Lines to create injection point
+l1 = gmsh.model.geo.addLine(p1, p2, 21)
+l2 = gmsh.model.geo.addLine(p2, p4, 22)
+l3 = gmsh.model.geo.addLine(p4, p3, 23)
+l4 = gmsh.model.geo.addLine(p3, p1, 24)
+l5 = gmsh.model.geo.addLine(p1, p5, 25)
+l6 = gmsh.model.geo.addLine(p3, p7, 26)
+l7 = gmsh.model.geo.addLine(p4, p8, 27)
+l8 = gmsh.model.geo.addLine(p2, p6, 28)
+l9 = gmsh.model.geo.addLine(p5, p6, 29)
+l10 = gmsh.model.geo.addLine(p6, p8, 30)
+l11 = gmsh.model.geo.addLine(p8, p7, 31)
+l12 = gmsh.model.geo.addLine(p7, p5, 32)
 
-CL1 = gmsh.model.geo.addCurveLoop([26, 28, 25, 27], 16)
-CL2 = gmsh.model.geo.addCurveLoop([34, 36, 35, 33], 17)
-CL3 = gmsh.model.geo.addCurveLoop([-31, 30, 27, -35], 18)
-CL4 = gmsh.model.geo.addCurveLoop([-32, 29, 33, -25], 19)
-CL5 = gmsh.model.geo.addCurveLoop([-30, 29, 28, -36], 20)
-CL6 = gmsh.model.geo.addCurveLoop([-32, 31, 26, -34], 21)
+#CurveLoops for injection point mesh
+CL1 = gmsh.model.geo.addCurveLoop([22, 24, 21, 23], 12)
+CL2 = gmsh.model.geo.addCurveLoop([30, 32, 31, 29], 13)
+CL3 = gmsh.model.geo.addCurveLoop([-27, 26, 23, -31], 14)
+CL4 = gmsh.model.geo.addCurveLoop([-28, 25, 29, -21], 15)
+CL5 = gmsh.model.geo.addCurveLoop([-26, 25, 24, -32], 16)
+CL6 = gmsh.model.geo.addCurveLoop([-28, 27, 22, -30], 17)
 
 #Loop through all the curve loops we just made and create a surface for each one
-for l in range(1, 22):
+for l in range(1, 18):
     gmsh.model.geo.addPlaneSurface([l], l)
 
 
 #Set the boundaries as physical groups for OGS use
+dim = 2
+
 Top = gmsh.model.addPhysicalGroup(dim, [1])
 gmsh.model.setPhysicalName(dim, Top, "Top")
 
-Right = gmsh.model.addPhysicalGroup(dim, [12])
+Right = gmsh.model.addPhysicalGroup(dim, [3, 8])
 gmsh.model.setPhysicalName(dim, Right, "Right")
 
-Left = gmsh.model.addPhysicalGroup(dim, [13])
+Left = gmsh.model.addPhysicalGroup(dim, [4, 9])
 gmsh.model.setPhysicalName(dim, Left, "Left")
 
 Bottom = gmsh.model.addPhysicalGroup(dim, [7])
 gmsh.model.setPhysicalName(dim, Bottom, "Bottom")
 
-Front = gmsh.model.addPhysicalGroup(dim, [14])
+Front = gmsh.model.addPhysicalGroup(dim, [5, 10])
 gmsh.model.setPhysicalName(dim, Front, "Front")
 
-Back = gmsh.model.addPhysicalGroup(dim, [15])
+Back = gmsh.model.addPhysicalGroup(dim, [6, 11])
 gmsh.model.setPhysicalName(dim, Back, "Back")
 
 
@@ -164,8 +158,8 @@ gmsh.model.geo.addSurfaceLoop([2, 11, 7, 8, 9, 10], 1) #Sediment
 gmsh.model.geo.addSurfaceLoop([1, 2, 3, 4, 5, 6], 2) #Bedrock
 gmsh.model.geo.addSurfaceLoop([CL1, CL2, CL3, CL4, CL5, CL6], 3) #Injection
 
-gmsh.model.geo.addVolume([1], 1) # The Bedrock must not overlap with the injection point
-gmsh.model.geo.addVolume([2, 3], 2)
+gmsh.model.geo.addVolume([1], 1) 
+gmsh.model.geo.addVolume([2, 3], 2) # The Bedrock must not overlap with the injection point
 gmsh.model.geo.addVolume([3], 3)
 
 
