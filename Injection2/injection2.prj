@@ -69,12 +69,12 @@
                     <type>FixedTimeStepping</type>
                     <t_initial>0</t_initial>
                     <!-- 10 days total -->
-                    <t_end>864000</t_end>
+                    <t_end>86400000</t_end>
                     <timesteps>
                         <pair>
-                            <repeat>10</repeat>
+                            <repeat>100</repeat>
                             <!-- repeat one day (60*60*24) sec 100 times -->
-                            <delta_t>86400</delta_t>
+                            <delta_t>864000</delta_t>
                         </pair>
                     </timesteps>
                 </time_stepping>
@@ -208,8 +208,8 @@
             <!-- <value>0.001</value> -->
             <!-- 5 kg/s divided by 40000 m^2 area -->
             <!-- <value>0.000125</value> -->
-            <!-- 5 kg/s divided by 8000000 m^2 area -->
-            <value>0.00000062</value>
+            <!-- 5 kg/s divided by 2016000 m^3 volume -->
+            <value>0.000000248015</value>
             <!-- A arbitary number -->
             <!-- <value>1e-10</value> -->
         </parameter>
