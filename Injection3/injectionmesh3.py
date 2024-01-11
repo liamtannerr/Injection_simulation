@@ -10,7 +10,7 @@ y = 16
 shale_z = 8
 sandstone_z = 7
 basement_z = 4
-lc = 1
+lc = 0.4
 Delta = 0.1
 
 #------------------------------------------------------------------------------#
@@ -184,7 +184,7 @@ gmsh.model.mesh.generate(3)
 
 
 gmsh.option.setNumber("Mesh.MshFileVersion", 2.2)
-gmsh.write("injectionmesh2.msh")
+gmsh.write("injectionmesh3.msh")
 
 
 if '-nopopup' not in sys.argv:
