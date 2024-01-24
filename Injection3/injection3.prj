@@ -23,22 +23,22 @@
             <integration_order>3</integration_order>
             <dimension>3</dimension>
             <!--define the constitutive behavior:  the material group IDs will be defined in parameters. -->
-            <constitutive_relation id="0">
+            <constitutive_relation id="7">
                 <type>LinearElasticIsotropic</type>
                 <youngs_modulus>YoungModulus</youngs_modulus>
                 <poissons_ratio>PoissonRatio</poissons_ratio>
             </constitutive_relation>
-            <constitutive_relation id="1">
+            <constitutive_relation id="8">
                 <type>LinearElasticIsotropic</type>
                 <youngs_modulus>YoungModulus</youngs_modulus>
                 <poissons_ratio>PoissonRatio</poissons_ratio>
             </constitutive_relation>
-            <constitutive_relation id="2">
+            <constitutive_relation id="9">
                 <type>LinearElasticIsotropic</type>
                 <youngs_modulus>YoungModulus</youngs_modulus>
                 <poissons_ratio>PoissonRatio</poissons_ratio>
             </constitutive_relation>
-            <constitutive_relation id="3">
+            <constitutive_relation id="10">
                 <type>LinearElasticIsotropic</type>
                 <youngs_modulus>YoungModulus</youngs_modulus>
                 <poissons_ratio>PoissonRatio</poissons_ratio>
@@ -74,13 +74,13 @@
                 <time_stepping>
                     <type>FixedTimeStepping</type>
                     <t_initial>0</t_initial>
-                    <!-- 10 days total -->
+                    <!-- 100 days total -->
                     <t_end>8640000</t_end>
                     <timesteps>
                         <pair>
-                            <repeat>10</repeat>
+                            <repeat>100</repeat>
                             <!-- repeat one day (60*60*24) sec 100 times -->
-                            <delta_t>864000</delta_t>
+                            <delta_t>86400</delta_t>
                         </pair>
                     </timesteps>
                 </time_stepping>
@@ -88,11 +88,11 @@
         </processes>
         <output>
             <type>VTK</type>
-            <prefix>Two_Layer</prefix>
+            <prefix>Three_Layer</prefix>
             <timesteps>
                 <pair>
-                    <repeat>20</repeat>
-                    <each_steps>5</each_steps>
+                    <repeat>4</repeat>
+                    <each_steps>1</each_steps>
                 </pair>
             </timesteps>
             <variables>
@@ -105,7 +105,7 @@
         </output>
     </time_loop>
     <media>
-        <medium id="0, 1, 2, 3">
+        <medium id="9">
             <phases>
                 <phase>
                     <type>Gas</type>
@@ -128,12 +128,165 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>2500</value>
+                            <value>2450</value>
                         </property>
                     </properties>
                 </phase>
             </phases>
             <properties>
+                <property>
+                    <name>porosity</name>
+                    <type>Constant</type>
+                    <value>0.16</value>
+                </property>
+                <property>
+                    <name>biot_coefficient</name>
+                    <type>Constant</type>
+                    <value>0.7</value>
+                </property>
+                <property>
+                    <name>reference_temperature</name>
+                    <type>Constant</type>
+                    <value>293.15</value>
+                </property>
+                <property>
+                    <name>permeability</name>
+                    <type>Constant</type>
+                    <value>1.5e-14</value>
+                </property>
+            </properties>
+        </medium>
+        <medium id="7">
+             <phases>
+                <phase>
+                    <type>Gas</type>
+                    <properties>
+                        <property>
+                            <name>viscosity</name>
+                            <type>Constant</type>
+                            <value>1.0e-3</value>
+                        </property>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>1000</value>
+                        </property>
+                    </properties>
+                </phase>
+                <phase>
+                    <type>Solid</type>
+                    <properties>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>2740</value>
+                        </property>
+                    </properties>
+                </phase>
+            </phases>
+            <properties>
+                <property>
+                    <name>porosity</name>
+                    <type>Constant</type>
+                    <value>0.16</value>
+                </property>
+                <property>
+                    <name>biot_coefficient</name>
+                    <type>Constant</type>
+                    <value>0.7</value>
+                </property>
+                <property>
+                    <name>reference_temperature</name>
+                    <type>Constant</type>
+                    <value>293.15</value>
+                </property>
+                <property>
+                    <name>permeability</name>
+                    <type>Constant</type>
+                    <value>1e-18</value>
+                </property>
+            </properties>
+        </medium>
+        <medium id="8">
+            <phases>
+                <phase>
+                    <type>Gas</type>
+                    <properties>
+                        <property>
+                            <name>viscosity</name>
+                            <type>Constant</type>
+                            <value>1.0e-3</value>
+                        </property>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>1000</value>
+                        </property>
+                    </properties>
+                </phase>
+                <phase>
+                    <type>Solid</type>
+                    <properties>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>2450</value>
+                        </property>
+                    </properties>
+                </phase>
+            </phases>
+            <properties>
+                <property>
+                    <name>porosity</name>
+                    <type>Constant</type>
+                    <value>0.16</value>
+                </property>
+                <property>
+                    <name>biot_coefficient</name>
+                    <type>Constant</type>
+                    <value>0.7</value>
+                </property>
+                <property>
+                    <name>reference_temperature</name>
+                    <type>Constant</type>
+                    <value>293.15</value>
+                </property>
+                <property>
+                    <name>permeability</name>
+                    <type>Constant</type>
+                    <value>1.5e-14</value>
+                </property>
+            </properties>
+        </medium>
+        <medium id="10">
+          <phases>
+                <phase>
+                    <type>Gas</type>
+                    <properties>
+                        <property>
+                            <name>viscosity</name>
+                            <type>Constant</type>
+                            <value>1.0e-3</value>
+                        </property>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>1000</value>
+                        </property>
+                    </properties>
+                </phase>
+                <phase>
+                    <type>Solid</type>
+                    <properties>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>2250</value>
+                        </property>
+                    </properties>
+                </phase>
+            </phases>
+           <properties>
                 <property>
                     <name>porosity</name>
                     <type>Constant</type>
@@ -163,19 +316,19 @@
             <type>Group</type>
             <group_id_property>MaterialIDs</group_id_property>
             <index_values>
-                <index>0</index>
+                <index>7</index>
                 <value>18.66e9</value> <!--Pa-->
             </index_values>
             <index_values>
-                <index>1</index>
+                <index>8</index>
                 <value>25.0e9</value> <!--Pa-->
             </index_values>
             <index_values>
-                <index>2</index>
+                <index>9</index>
                 <value>25.0e9</value> <!--Pa-->
             </index_values>
             <index_values>
-                <index>3</index>
+                <index>10</index>
                 <value>18.66e9</value> <!--Pa-->
             </index_values>
         </parameter>
@@ -184,19 +337,19 @@
             <type>Group</type>
             <group_id_property>MaterialIDs</group_id_property>
             <index_values>
-                <index>0</index>
+                <index>7</index>
                 <value>0.25</value>
             </index_values>
             <index_values>
-                <index>1</index>
+                <index>8</index>
                 <value>0.33</value>
             </index_values>
             <index_values>
-                <index>2</index>
+                <index>9</index>
                 <value>0.33</value>
             </index_values>
             <index_values>
-                <index>2</index>
+                <index>10</index>
                 <value>0.25</value>
             </index_values>
         </parameter>
@@ -268,37 +421,37 @@
             <initial_condition>displacement0</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Front</mesh>
+                    <mesh>injectionmesh3_physical_group_Front</mesh>
                     <type>Dirichlet</type>
                     <component>0</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Back</mesh>
+                    <mesh>injectionmesh3_physical_group_Back</mesh>
                     <type>Dirichlet</type>
                     <component>0</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Right</mesh>
+                    <mesh>injectionmesh3_physical_group_Right</mesh>
                     <type>Dirichlet</type>
                     <component>1</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Left</mesh>
+                    <mesh>injectionmesh3_physical_group_Left</mesh>
                     <type>Dirichlet</type>
                     <component>1</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Ceiling</mesh>
+                    <mesh>injectionmesh3_physical_group_Ceiling</mesh>
                     <type>Dirichlet</type>
                     <component>2</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Floor</mesh>
+                    <mesh>injectionmesh3_physical_group_Floor</mesh>
                     <type>Dirichlet</type>
                     <component>2</component>
                     <parameter>zero</parameter>
@@ -312,13 +465,25 @@
             <initial_condition>pressure0</initial_condition>
             <boundary_conditions>  
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Right</mesh>
+                    <mesh>injectionmesh3_physical_group_Right</mesh>
                     <type>Neumann</type>
                     <component>0</component>
                     <parameter>pressure0</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <mesh>injectionmesh2_physical_group_Left</mesh>
+                    <mesh>injectionmesh3_physical_group_Left</mesh>
+                    <type>Neumann</type>
+                    <component>0</component>
+                    <parameter>pressure0</parameter>
+                </boundary_condition>
+                 <boundary_condition>
+                    <mesh>injectionmesh3_physical_group_Front</mesh>
+                    <type>Neumann</type>
+                    <component>0</component>
+                    <parameter>pressure0</parameter>
+                </boundary_condition>
+                <boundary_condition>
+                    <mesh>injectionmesh3_physical_group_Back</mesh>
                     <type>Neumann</type>
                     <component>0</component>
                     <parameter>pressure0</parameter>
@@ -326,7 +491,7 @@
             </boundary_conditions>
             <source_terms>
                 <source_term>
-                    <mesh>injectionmesh2_physical_group_Injection</mesh>
+                    <mesh>injectionmesh3_physical_group_Injection</mesh>
                     <!-- <type>Nodal</type> -->
                     <type>Volumetric</type>
                     <parameter>TimeDependentSourceTerm</parameter>

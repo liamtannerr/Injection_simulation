@@ -5,13 +5,13 @@ import sys
 gmsh.initialize()
 gmsh.model.add("injectionmesh3.py")
 
-x = 18
-y = 16
-shale_z = 8
-sandstone_z = 7
-basement_z = 4
-lc = 0.4
-Delta = 0.1
+x = 7.425
+y = 6.6
+shale_z = 3.3
+sandstone_z = 2.7
+basement_z = 2.2
+lc = 0.3
+Delta = 0.05
 
 #------------------------------------------------------------------------------#
 
@@ -33,15 +33,15 @@ gmsh.model.geo.addPoint(x, 0, shale_z, lc, 14)
 gmsh.model.geo.addPoint(0, y, shale_z, lc, 15)
 gmsh.model.geo.addPoint(x, y, shale_z, lc, 16)
 
-injectionmid = gmsh.model.geo.addPoint(0.5 * x, 0.5 * y, 5.5, lc, 17)
-p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 5.5 + Delta, lc, 18)
-p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 5.5 - Delta, lc, 19)
-p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 5.5 + Delta, lc, 20)
-p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 5.5 - Delta, lc, 21)
-p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 5.5 + Delta, lc, 22)
-p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 5.5 - Delta, lc, 23)
-p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 5.5 + Delta, lc, 24)
-p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 5.5 - Delta, lc, 25)
+injectionmid = gmsh.model.geo.addPoint(0.5 * x, 0.5 * y, 2.45, lc, 17)
+p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 + Delta, lc / 2, 18)
+p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 - Delta, lc / 2, 19)
+p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 2.45 + Delta, lc / 2, 20)
+p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 2.45 - Delta, lc / 2, 21)
+p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 2.45 + Delta, lc / 2, 22)
+p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 2.45 - Delta, lc / 2, 23)
+p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 2.45 + Delta, lc / 2, 24)
+p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 2.45 - Delta, lc / 2, 25)
 
 #------------------------------------------------------------------------------#
 
