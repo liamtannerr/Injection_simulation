@@ -33,7 +33,7 @@ gmsh.model.geo.addPoint(x, 0, shale_z, lc, 14)
 gmsh.model.geo.addPoint(0, y, shale_z, lc, 15)
 gmsh.model.geo.addPoint(x, y, shale_z, lc, 16)
 
-injectionmid = gmsh.model.geo.addPoint(0.5 * x, 0.5 * y, 2.45, lc, 17)
+
 p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 + Delta, lc / 2, 18)
 p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 - Delta, lc / 2, 19)
 p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 2.45 + Delta, lc / 2, 20)

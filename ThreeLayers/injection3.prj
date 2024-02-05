@@ -88,7 +88,7 @@
         </processes>
         <output>
             <type>VTK</type>
-            <prefix>Three_Layer</prefix>
+            <prefix>Three_Layer_moreinject</prefix>
             <timesteps>
                 <pair>
                     <repeat>4</repeat>
@@ -137,7 +137,7 @@
                 <property>
                     <name>porosity</name>
                     <type>Constant</type>
-                    <value>0.16</value>
+                    <value>0.03</value>
                 </property>
                 <property>
                     <name>biot_coefficient</name>
@@ -188,7 +188,7 @@
                 <property>
                     <name>porosity</name>
                     <type>Constant</type>
-                    <value>0.16</value>
+                    <value>0.01</value>
                 </property>
                 <property>
                     <name>biot_coefficient</name>
@@ -239,7 +239,7 @@
                 <property>
                     <name>porosity</name>
                     <type>Constant</type>
-                    <value>0.16</value>
+                    <value>0.03</value>
                 </property>
                 <property>
                     <name>biot_coefficient</name>
@@ -290,7 +290,7 @@
                 <property>
                     <name>porosity</name>
                     <type>Constant</type>
-                    <value>0.16</value>
+                    <value>0.08</value>
                 </property>
                 <property>
                     <name>biot_coefficient</name>
@@ -376,7 +376,7 @@
             <!-- 5 kg/s divided by 40000 m^2 area -->
             <!-- <value>0.000125</value> -->
             <!-- 5 kg/s divided by 2016000 m^3 volume -->
-            <value>0.000000248015</value>
+            <value>0.0000248015</value>
             <!-- A arbitary number -->
             <!-- <value>1e-10</value> -->
         </parameter>
