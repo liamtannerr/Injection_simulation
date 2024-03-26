@@ -5,12 +5,12 @@
 <Piece NumberOfPoints="14" NumberOfCells="24">
 <Points>
 <DataArray type="Float64" Name="Points" NumberOfComponents="3" format="binary">
-AQAAAACAAABQAQAAXQAAAA==eJybNRMIJPkczp4BAS4HBjBgcZiFJm4MBsxwcYg6TPUwcZh6sH4fXgzz0cXR1aObjy6O7p40MOCC8GcizEEXNwRp24wwB10c5h6YuDFUHGYOzD3o4jD3AADFB21u
+AQAAAACAAABQAQAAUAAAAA==eJxjYACC1LUOIIpBZxWE7lgModHFDyxCFU9ZiV09TBymfu4a7Oaji6OrRzcfXRzdPSeg4ipo6tHFGdHciS4Ocw+6+Ak096CLA90DAM4oOBA=
 </DataArray>
 </Points>
 <Cells>
 <DataArray type="Int64" Name="connectivity" format="binary">
-AQAAAACAAAAAAwAAiAAAAA==eJx1ktsOgCAMQ/EKDv3/3/XBHRNOAi+NjHZdZ5TvXIl34qP7Pqnz3RJD9aZ3fVLfElfpHIn7xA+4lPGgeyZW8WN8/vf1PLyHjx/ngz/6oYMv5kMXfqheVUcHf+jDY34OPpw3vvHj/s6H+ix39OF7j96v84XHPP7/rOs9Ox/nYB763t8LwPwDGQ==
+AQAAAACAAAAAAwAAgAAAAA==eJx1kkkOwDAIA5t0D+n/v9tDmMtIcEEIsB2H2Fa8mb/MQzk0N5U99wgvNOf+mfkWD/Ve6CMO8aALnEt47DfhWD/76DMPeprmrIPoBT646Jyq2Rvqw48/6AC/q2//7bP9rXjZ553o931UPrEPrv/J/+c7sb/UBPjV3dD/AcCEAxE=
 </DataArray>
 <DataArray type="Int64" Name="offsets" format="binary">
 AQAAAACAAADAAAAARAAAAA==eJwtxRECgDAAAMBgEAyCIAiCIAiCIBgEQTAYBEHQ/18RdCcXql/t6MatO/cePHry7MWrNyfvPnw6u/jy7cevP0XPBLE=
@@ -21,7 +21,7 @@ AQAAAACAAADAAAAADwAAAA==eJzjYoAAriFKAwBegADx
 </Cells>
 <PointData>
 <DataArray type="UInt64" Name="bulk_node_ids" format="binary">
-AQAAAACAAABwAAAALQAAAA==eJwtxcsVwBAAADAT9FG//WdCGacHySUxXMmvs4urm7vHc59e/rx9/APGvAXy
+AQAAAACAAABwAAAALQAAAA==eJwtxbkBwBAAAEAjhHhq+y+CsFMKd8094YpOfp1dXN08+n16+fP28Q/LigYi
 </DataArray>
 </PointData>
 <CellData>

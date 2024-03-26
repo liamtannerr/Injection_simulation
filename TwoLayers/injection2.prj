@@ -68,13 +68,13 @@
                 <time_stepping>
                     <type>FixedTimeStepping</type>
                     <t_initial>0</t_initial>
-                    <!-- 10 days total -->
-                    <t_end>86400000</t_end>
+                    <!-- 100 days total -->
+                    <t_end>8640000</t_end>
                     <timesteps>
                         <pair>
                             <repeat>100</repeat>
                             <!-- repeat one day (60*60*24) sec 100 times -->
-                            <delta_t>864000</delta_t>
+                            <delta_t>86400</delta_t>
                         </pair>
                     </timesteps>
                 </time_stepping>
@@ -85,8 +85,8 @@
             <prefix>Two_Layer</prefix>
             <timesteps>
                 <pair>
-                    <repeat>20</repeat>
-                    <each_steps>5</each_steps>
+                    <repeat>100</repeat>
+                    <each_steps>1</each_steps>
                 </pair>
             </timesteps>
             <variables>
@@ -231,12 +231,12 @@
                 <pair>
                     <time>864000</time>
                     <!-- start inject since the 10th day -->
-                    <parameter_name>no_flux</parameter_name>
+                    <parameter_name>nodal_flux</parameter_name>
                 </pair>
                 <pair>
                     <time>2592000</time>
                     <!-- stop inject at the 30th day -->
-                    <parameter_name>nodal_flux</parameter_name>
+                    <parameter_name>no_flux</parameter_name>
                 </pair>
                 <pair>
                     <time>8640000</time>

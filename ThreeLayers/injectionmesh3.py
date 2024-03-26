@@ -5,13 +5,16 @@ import sys
 gmsh.initialize()
 gmsh.model.add("injectionmesh3.py")
 
-x = 7.425
-y = 6.6
-shale_z = 3.3
-sandstone_z = 2.7
-basement_z = 2.2
-lc = 0.3
-Delta = 0.05
+km = 1e3
+m = 1
+
+x = 7.425 * km
+y = 6.6 * km
+shale_z = 3.3 * km
+sandstone_z = 2.7 * km
+basement_z = 2.2 * km
+lc = 200
+Delta = 50 * m
 
 #------------------------------------------------------------------------------#
 
@@ -34,14 +37,14 @@ gmsh.model.geo.addPoint(0, y, shale_z, lc, 15)
 gmsh.model.geo.addPoint(x, y, shale_z, lc, 16)
 
 
-p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 + Delta, lc / 2, 18)
-p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 - Delta, lc / 2, 19)
-p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 2.45 + Delta, lc / 2, 20)
-p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 2.45 - Delta, lc / 2, 21)
-p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 2.45 + Delta, lc / 2, 22)
-p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 2.45 - Delta, lc / 2, 23)
-p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 2.45 + Delta, lc / 2, 24)
-p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 2.45 - Delta, lc / 2, 25)
+p1 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 * km + Delta, lc, 18)
+p2 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y + Delta, 2.45 * km - Delta, lc, 19)
+p3 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 2.45 * km + Delta, lc, 20)
+p4 = gmsh.model.geo.addPoint(0.5*x + Delta, 0.5*y - Delta, 2.45 * km - Delta, lc, 21)
+p5 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 2.45 * km + Delta, lc, 22)
+p6 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y + Delta, 2.45 * km - Delta, lc, 23)
+p7 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 2.45 * km + Delta, lc, 24)
+p8 = gmsh.model.geo.addPoint(0.5*x - Delta, 0.5*y - Delta, 2.45 * km - Delta, lc, 25)
 
 #------------------------------------------------------------------------------#
 
@@ -103,31 +106,33 @@ l12 = gmsh.model.geo.addLine(p7, p5, 40)
 #------------------------------------------------------------------------------#
 
 #Surfaces:
-gmsh.model.geo.addCurveLoop([3, -2, 1, -4], 1) #Basement Floor
-gmsh.model.geo.addCurveLoop([20, -17, 1, -5], 2) #Basement Front
-gmsh.model.geo.addCurveLoop([-17, 23, 2, -6], 3) #Basement Left
-gmsh.model.geo.addCurveLoop([26, -20, 3, -7], 4) #Basement Right
-gmsh.model.geo.addCurveLoop([26, -23, 4, -8], 5) #Basement Back
-gmsh.model.geo.addCurveLoop([7, -6, 5, -8], 6) #Basement Ceiling
+#Note that adding True as the optional 3rd argument to addCurveLoop() will
+#automatically orient the closed-wire
+gmsh.model.geo.addCurveLoop([3, 2, 1, 4], 1, True) #Basement Floor
+gmsh.model.geo.addCurveLoop([20, 17, 1, 5], 2, True) #Basement Front
+gmsh.model.geo.addCurveLoop([17, 23, 2, 6], 3, True) #Basement Left
+gmsh.model.geo.addCurveLoop([26, 20, 3, 7], 4, True) #Basement Right
+gmsh.model.geo.addCurveLoop([26, 23, 4, 8], 5, True) #Basement Back
+gmsh.model.geo.addCurveLoop([7, 6, 5, 8], 6, True) #Basement Ceiling
 
-gmsh.model.geo.addCurveLoop([21, -18, 5, -9], 7) #Sandstone Front
-gmsh.model.geo.addCurveLoop([-18, 24, 6, -10], 8) #Sandstone Left
-gmsh.model.geo.addCurveLoop([27, -21, 7, -11], 9) #Sandstone Right
-gmsh.model.geo.addCurveLoop([27, -24, 8, -12], 10) #Sandstone Back
-gmsh.model.geo.addCurveLoop([11, -10, 9, -12], 11) #Sandstone Ceiling
+gmsh.model.geo.addCurveLoop([21, 18, 5, 9], 7, True) #Sandstone Front
+gmsh.model.geo.addCurveLoop([18, 24, 6, 10], 8, True) #Sandstone Left
+gmsh.model.geo.addCurveLoop([27, 21, 7, 11], 9, True) #Sandstone Right
+gmsh.model.geo.addCurveLoop([27, 24, 8, 12], 10, True) #Sandstone Back
+gmsh.model.geo.addCurveLoop([11, 10, 9, 12], 11, True) #Sandstone Ceiling
 
-gmsh.model.geo.addCurveLoop([22, -19, 9, -13], 12) #Shale Front
-gmsh.model.geo.addCurveLoop([-19, 25, 10, -14], 13) #Shale Left
-gmsh.model.geo.addCurveLoop([28, -22, 11, -15], 14) #Shale Right
-gmsh.model.geo.addCurveLoop([28, -25, 12, -16], 15) #Shale Back
-gmsh.model.geo.addCurveLoop([15, -14, 13, -16], 16) #Shale Ceiling
+gmsh.model.geo.addCurveLoop([22, 19, 9, 13], 12, True) #Shale Front
+gmsh.model.geo.addCurveLoop([19, 25, 10, 14], 13, True) #Shale Left
+gmsh.model.geo.addCurveLoop([28, 22, 11, 15], 14, True) #Shale Right
+gmsh.model.geo.addCurveLoop([28, 25, 12, 16], 15, True) #Shale Back
+gmsh.model.geo.addCurveLoop([15, 14, 13, 16], 16, True) #Shale Ceiling
 
-CL1 = gmsh.model.geo.addCurveLoop([30, 32, 29, 31], 17)
-CL2 = gmsh.model.geo.addCurveLoop([38, 40, 39, 37], 18)
-CL3 = gmsh.model.geo.addCurveLoop([-35, 34, 31, -39], 19)
-CL4 = gmsh.model.geo.addCurveLoop([-36, 33, 37, -29], 20)
-CL5 = gmsh.model.geo.addCurveLoop([-34, 33, 32, -40], 21)
-CL6 = gmsh.model.geo.addCurveLoop([-36, 35, 30, -38], 22)
+CL1 = gmsh.model.geo.addCurveLoop([30, 32, 29, 31], 17, True)
+CL2 = gmsh.model.geo.addCurveLoop([38, 40, 39, 37], 18, True)
+CL3 = gmsh.model.geo.addCurveLoop([35, 34, 31, 39], 19, True)
+CL4 = gmsh.model.geo.addCurveLoop([36, 33, 37, 29], 20, True)
+CL5 = gmsh.model.geo.addCurveLoop([34, 33, 32, 40], 21, True)
+CL6 = gmsh.model.geo.addCurveLoop([36, 35, 30, 38], 22, True)
 
 for l in range(1, 23):
     gmsh.model.geo.addPlaneSurface([l], l)
