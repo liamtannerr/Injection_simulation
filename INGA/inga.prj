@@ -88,7 +88,7 @@
         </processes>
         <output>
             <type>VTK</type>
-            <prefix>INGA1</prefix>
+            <prefix>INGA_BiCGSTAB</prefix>
             <timesteps>
                 <pair>
                     <repeat>4</repeat>
