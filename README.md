@@ -1,5 +1,5 @@
 # Injection_simulation
-This repository contains 3 CO2 injection simulation cases that increase in complexity and a simulation involving the waste water disposal well: SECURE INGA C- 088-J/094-A-12. All of the cases make use of the gmsh Python API for meshing and the OpenGeoSys finite element solver to run the simulation. Results can easily by viewed in paraview.
+This repository contains 3 CO2 injection simulation cases that increase in complexity and a simulation involving the waste water disposal well: SECURE INGA C- 088-J/094-A-12. All of the cases make use of the gmsh Python tool for meshing and the OpenGeoSys finite element solver to run the simulation. Results can easily by viewed in paraview.
 
 OneLayer: Very simple injection into a homogenous medium. The injection occurs evenly over one face of the cube.
 TwoLayers: Slightly more complex injection simulation involving two layers of material with a specified injection point in the top layer.
