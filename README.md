@@ -5,6 +5,6 @@ OneLayer: Very simple injection into a homogenous medium. The injection occurs e
 
 TwoLayers: Slightly more complex injection simulation involving two layers of material with a specified injection point in the top layer.
 
-ThreeLayers: Essentially the same as Injection with a third layer added in addition to more realistic physical properties of the materials and depth of the layers.
+ThreeLayers: Essentially the same as TwoLayers, but with a third layer added in addition to more realistic physical properties of the materials and depth of the layers.
 
-INGA: This simulation uses all the paramters of the SECURE INGA C- 088-J/094-A-12 waste water disposal well. These parameters can be found in the INGA _Parameters.xlsx file which is the work of Malakai Jobin.This is another 3 layer case but adheres to depth values and material properties of the aforementioned well.
+INGA: This simulation uses all the paramters of the SECURE INGA C- 088-J/094-A-12 waste water disposal well. These parameters can be found in the INGA _Parameters.xlsx file which is the work of Malakai Jobin. This is another 3 layer case but adheres to depth values and material properties of the aforementioned well.
